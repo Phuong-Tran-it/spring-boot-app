@@ -23,42 +23,41 @@ pipeline {
                 checkout scm
             }
         }
-        
         stage('Build') {
             steps {
-                dir('spring-boot-app') {
                     sh 'mvn clean package -DskipTests'
-                }
+                // dir('spring-boot-app') {
+                // }
             }
         }
-        
         stage('Test') {
             steps {
-                dir('spring-boot-app') {
                     sh 'mvn test'
-                }
+                // dir('spring-boot-app') {
+                // }
             }
         }
 
         stage('Archive') {
             steps {
-                dir('spring-boot-app') {
                     archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                }
+                // dir('spring-boot-app') {
+                // }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                dir('spring-boot-app') {
                     sh 'docker build --platform linux/amd64 -t ${DOCKER_IMAGE}:${DOCKER_TAG} --build-arg JAR_NAME=${JAR_NAME} .'
-                }
+                // dir('spring-boot-app') {
+                // }
             }
         }
 
-        stage('Deploy') {  
+        stage('Deploy') {
             steps {
-                dir('spring-boot-app') {
+                // dir('spring-boot-app') {
+                // }
                     sh '''
                         # Stop and remove existing container if it exists
                         docker ps -q --filter "name=spring-boot-app" | grep -q . && docker stop spring-boot-app || true
@@ -75,9 +74,8 @@ pipeline {
                         # Check application logs
                         docker logs spring-boot-app
                     '''
-                }
 
-            }  
-        }  
+            }
+        }
     }
 }
