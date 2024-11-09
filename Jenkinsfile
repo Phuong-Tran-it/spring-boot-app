@@ -3,8 +3,8 @@ pipeline {
         label 'java-slave'
     }
     environment {
-        APP_PORT = '3001'
-        JAR_NAME = 'hello-world-spring-1.0.0.jar'
+        // APP_PORT = '3001'
+        // JAR_NAME = 'hello-world-spring-1.0.0.jar'
         DOCKER_IMAGE = 'spring-boot-app'
         DOCKER_TAG = 'latest'
     }
